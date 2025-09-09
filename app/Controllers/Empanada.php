@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class Empanada extends BaseController
 {
     public function index(): string
     {
-        return view('home/index');
+        return view('empanada/index');
     }
 }

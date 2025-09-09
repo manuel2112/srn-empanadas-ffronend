@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item ">
-                        <a class="sidebar-link" href="{{ route('products_show') }}" title="Productos">
+                        <a class="sidebar-link" href="<?php echo url_to('empanadas') ?>" title="Productos">
                             <i class="align-middle fas fa-list"></i> <span class="align-middle">Empanadas</span>
                         </a>
                     </li>
@@ -95,7 +95,7 @@
     <script src="<?php echo base_url('js/app.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('js/sweetalert2.js'); ?>"></script>
     <script src="<?php echo base_url('js/funciones.js'); ?>"></script>
-    <!-- @stack('scripts') -->
+    <?= $this->renderSection('scripts') ?>
 </body>
 
 </html>
