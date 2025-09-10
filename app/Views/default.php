@@ -66,7 +66,7 @@
                                 <span class="text-dark">|</span>
                             </a>
                             <a class="nav-link d-none d-sm-inline-block">
-                                {{ Auth::user()->name }}
+                                Invitado
                             </a>
                         </li>
                     </ul>

@@ -19,41 +19,53 @@
             const data = await response.json();
 
             const tableBody = document.getElementById('dataTableBody');
-            tableBody.innerHTML = ''; // Clear existing content
+            tableBody.innerHTML = '';
 
-            data.forEach((row, idx) => {
+            if(data.length == 0){
                 const tr = document.createElement('tr');
 
                 const td1 = document.createElement('td');
-                td1.textContent = ++idx;
+                td1.textContent = "No existe información.";
                 tr.appendChild(td1);
 
-                const td2 = document.createElement('td');
-                td2.textContent = row.name;
-                tr.appendChild(td2);
-
-                const td3 = document.createElement('td');
-                td3.textContent = row.type;
-                tr.appendChild(td3);
-
-                const td4 = document.createElement('td');
-                td4.textContent = `$${formatMoneyString(row.price)}`;
-                tr.appendChild(td4);
-
-                const td5 = document.createElement('td');
-                td5.textContent = row.filling;
-                tr.appendChild(td5);
-
-                const td6 = document.createElement('td');
-                td6.textContent = `${row.is_sold_out ? 'Agotado' : 'Disponible'}`;
-                tr.appendChild(td6);
-
-                const td7 = document.createElement('td');
-                td7.innerHTML = `<div class="btn-group"><button class="btn btn-warning" onclick="getData(${row.id})" data-bs-toggle="modal" data-bs-target="#updateEmpanadaModal"><i class="fa-solid fa-pen-to-square"></i></button> <button class="btn btn-danger" onclick="deleteData(${row.id})"><i class="fa-solid fa-trash"></i></button></div>`;
-                tr.appendChild(td7);
-
                 tableBody.appendChild(tr);
-            });
+            }else{
+                data.forEach((row, idx) => {
+                    const tr = document.createElement('tr');
+
+                    const td1 = document.createElement('td');
+                    td1.textContent = ++idx;
+                    tr.appendChild(td1);
+
+                    const td2 = document.createElement('td');
+                    td2.textContent = row.name;
+                    tr.appendChild(td2);
+
+                    const td3 = document.createElement('td');
+                    td3.textContent = row.type;
+                    tr.appendChild(td3);
+
+                    const td4 = document.createElement('td');
+                    td4.textContent = `$${formatMoneyString(row.price)}`;
+                    tr.appendChild(td4);
+
+                    const td5 = document.createElement('td');
+                    td5.textContent = row.filling;
+                    tr.appendChild(td5);
+
+                    const td6 = document.createElement('td');
+                    td6.textContent = `${row.is_sold_out ? 'Agotado' : 'Disponible'}`;
+                    tr.appendChild(td6);
+
+                    const td7 = document.createElement('td');
+                    td7.innerHTML = `<div class="btn-group"><button class="btn btn-warning" onclick="getData(${row.id})" data-bs-toggle="modal" data-bs-target="#updateEmpanadaModal"><i class="fa-solid fa-pen-to-square"></i></button> <button class="btn btn-danger"     onclick="deleteData(${row.id})"><i class="fa-solid fa-trash"></i></button></div>`;
+                    tr.appendChild(td7);
+
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            
         } catch (error) {
             console.error(error.message);
         }
