@@ -50,12 +50,67 @@
         }
     }
 
-    function storeData() {
-        console.log("store")
+    async function storeData() {
+        
+        const form = document.getElementById('storeForm');
+        const name = document.getElementById('nameForm');
+        const type = document.getElementById('typeForm');
+        const price = document.getElementById('priceForm');
+        const filling = document.getElementById('fillingForm');
+
+        let isValid = true;
+        
+        nameFormError.textContent = '';
+        typeFormError.textContent = '';
+        priceFormError.textContent = '';
+        fillingFormError.textContent = '';
+        
+        if (name.value.length < 3) {
+            nameFormError.textContent = 'Nombre superior a 3 caracteres.';
+            isValid = false;
+        }
+        if (type.value.length < 3) {
+            typeFormError.textContent = 'Tipo superior a 3 caracteres.';
+            isValid = false;
+        }
+        if (Number(price.value) <= 0) {
+            priceFormError.textContent = 'Precio debe ser mayor a cero.';
+            isValid = false;
+        }
+        if (filling.value.length < 10) {
+            fillingFormError.textContent = 'Relleno debe ser mayor a 10 caracteres.';
+            isValid = false;
+        }
+
+        if (isValid) {
+            console.log("pasa")
+            const storeData = {
+                name: name.value,
+                type: type.value,
+                price: Number(price.value),
+                filling: filling.value,
+                is_sold_out: false
+            };
+            const response = await fetch('http://localhost:3000/api/empanadas', {
+                method: 'POST',
+                body: JSON.stringify(storeData), 
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('Success:', result);
+            document.getElementById("close-modal-store").click();
+            form.reset();
+            Swal.fire("Empanada guardada", "La empanada ha sido guardada exitosamente.", "success");
+            getList();
+        }
     }
 
     async function deleteData(id) {
-        console.log('remove data', id);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
